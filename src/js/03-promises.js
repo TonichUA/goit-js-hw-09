@@ -32,11 +32,17 @@ function handleSubmit(event) {
     createPromise(position, currentDelay)
       .then(({ position, delay }) => {
         console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
+        return new Promise(resolve => {
+          setTimeout(resolve, 2000); // Затримка між промісами
+        });
       })
       .catch(({ position, delay }) => {
         console.log(`❌ Rejected promise ${position} in ${delay}ms`);
+        return new Promise(resolve => {
+          setTimeout(resolve, 2000); // Затримка між промісами
+        });
       })
-      .finally(() => {
+      .then(() => {
         createAndHandlePromise(position + 1);
       });
   }
